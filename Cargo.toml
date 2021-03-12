@@ -1,0 +1,13 @@
+[package]
+name = "compute-starter-kit-rust-default"
+version = "0.1.0"
+authors = []
+edition = "2018"
+
+[profile.release]
+debug = true
+
+[dependencies]
+fastly = "^0.7.0"
+rand = "0.8.3"
+config = "0.10.1"
