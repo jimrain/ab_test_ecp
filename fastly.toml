@@ -1,6 +1,6 @@
-version = 3
-name = "AB Test"
-description = "AB Test POC"
 authors = ["Jim Rainville"]
+description = "AB Test POC"
 language = "rust"
+manifest_version = 1
+name = "AB Test"
 service_id = "1LAMrkALnX9wwFnBSiU1fd"

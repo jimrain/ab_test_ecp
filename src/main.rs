@@ -33,7 +33,7 @@ const VARIANTS: [&'static str; 2] = ["A", "B"];
 #[fastly::main]
 fn main(mut req: Request) -> Result<Response, Error> {
     // Make sure we are running the version we think we are.
-    println!("AB demo version:{}", get_version());
+    // println!("AB demo version:{}", std::env::var("FASTLY_SERVICE_VERSION").unwrap_or_else(|_| String::new()));
 
     // Filter request methods...
     match req.get_method() {
@@ -129,21 +129,3 @@ fn get_cookie_value(req: &Request, key: &str) -> Option<String> {
     }
 }
 
-
-/// This function reads the fastly.toml file and gets the deployed version. This is only run at
-/// compile time. Since we bump the version number after building (during the deploy) we return
-/// the version incremented by one so the version returned will match the deployed version.
-/// NOTE: If the version is incremented by Tango this might be inaccurate.
-fn get_version() -> i32 {
-    Config::new()
-        .merge(config::File::from_str(
-            include_str!("../fastly.toml"), // assumes the existence of fastly.toml
-            FileFormat::Toml,
-        ))
-        .unwrap()
-        .get_str("version")
-        .unwrap()
-        .parse::<i32>()
-        .unwrap_or(0)
-        + 1
-}
